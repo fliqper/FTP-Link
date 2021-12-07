@@ -1,0 +1,15 @@
+import time
+import ftputil
+host = ftputil.FTPHost('ftphost.com', 'username', 'password')
+mypath = 'ftp_dir'
+now = time.time()
+host.chdir(mypath)
+names = host.listdir(host.curdir)
+for name in names:
+    if host.path.getmtime(name) < (now - (7 * 86400)):
+      if host.path.isfile(name):
+         host.remove(name)
+
+
+print 'Closing FTP connection'
+host.close()
